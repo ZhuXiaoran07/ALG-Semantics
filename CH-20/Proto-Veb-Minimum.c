@@ -1,0 +1,13 @@
+//p542
+PROTO-VEB-MINIMUM(V)
+if V.u==2
+	if V.A[0]==1
+		return 0
+	elseif V.A[1]==1
+			return 1
+	else return NIL
+else {min-cluster=PROTO-VEB-MINIMUM(V.summary)
+	if min-cluster==NIL
+		return NIL
+	else{offset=PROTO-VEB-MINIMUM(V.cluster[min-cluster])
+return index(min-cluster,offset)}}

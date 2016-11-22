@@ -1,0 +1,9 @@
+//P254
+DIRECT-ADDRESS-SEARCH(T,k)
+ return T[k]
+
+DIRECT-ADDRESS-INSERT(T,x)
+ T[x.key]=x
+
+DIRECT-ADDRESS-DELETE(T,x)
+ T[x.key]=NIL

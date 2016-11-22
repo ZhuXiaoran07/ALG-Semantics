@@ -1,0 +1,6 @@
+//P544
+PROTO-VEB-INSERT(V,x)
+if V.u==2
+	V.A[x]=1
+else{PROTO-VEB-INSERT(V.cluster[high(x)],low(x))
+	 PROTO-VEB-INSERT(V.summary, high(x))}

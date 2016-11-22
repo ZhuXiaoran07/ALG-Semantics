@@ -1,0 +1,8 @@
+//P377
+PRINT-OPTIMAL-PARENS(s,i,j)
+if i==j
+	print "A"
+else{print "("
+	PRINT-OPTIMAL-PARENS(s,i,s[i,j])
+	PRINT-OPTIMAL-PARENS(s,s[i,j]+1,j)
+	print ")"}
