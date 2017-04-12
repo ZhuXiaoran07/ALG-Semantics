@@ -1,4 +1,4 @@
-module ALG4-SYNTAX
+module ALG-SYNTAX
 
 syntax MainId ::= "main"   [token]
 syntax Id::= "top"	| "tail" | "head" | "length" | "next" | "key" | "prev" | "NIL" | "left" 
@@ -182,8 +182,8 @@ endmodule
 
 
 
-module ALG4
-  imports ALG4-SYNTAX
+module ALG
+  imports ALG-SYNTAX
  // imports ALG-CONFIGURATION
    syntax KResult ::= MyInt | Bool | String
 
