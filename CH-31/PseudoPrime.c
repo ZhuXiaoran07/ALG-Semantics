@@ -1,0 +1,5 @@
+//P967
+PSEUDOPRIME(n)
+if MODULAREXPONENTIATION(2,n-1,n)
+	return COMPOSITE
+else return PRIME
