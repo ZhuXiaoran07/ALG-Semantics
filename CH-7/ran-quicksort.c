@@ -1,0 +1,13 @@
+//P 179
+
+RANDOMIZEDPARTITION(A,p,r)
+ i=RANDOM(p,r)
+ exchange A[r] with A[i]
+ return PARTITION(A,p,r)
+
+RANDOMIZEDQUICKSORT(A,p,r)
+ if p<r{
+	q=RANDOMIZEDPARTITION(A,p,r)
+	RANDOMIZEDQUICKSORT(A,p,q-1)
+	RANDOMIZEDQUICKSORT(A,q+1,r)}
+

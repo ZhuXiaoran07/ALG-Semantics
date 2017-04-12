@@ -1,0 +1,14 @@
+//P513
+FIBHEAPEXTRACTMIN(H)
+z=H.min
+if z!=NIL{
+	for each child x of z{
+		add x to the root list of H
+		x.p=NIL}
+	remove z from the root list of H
+	if z==z.right
+		H.min=NIL
+	else H.min=z.right
+		CONSOLIDATE(H)
+    H.n=H.n-1}
+return z

@@ -1,0 +1,7 @@
+//P492
+BTREECREATE(T)
+x=ALLOCATENODE()
+x.leaf=TRUE
+x.n=0
+DISK-WRITE(x)
+T.root=x

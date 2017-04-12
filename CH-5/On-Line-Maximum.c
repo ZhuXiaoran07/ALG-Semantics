@@ -1,0 +1,10 @@
+//P140
+ONLINEMAXIMUM(k,n)
+bestscore=-INFINITY
+for i=1 to k
+	if score(i)>bestscore
+		bestscore=score(i)
+for i=k+1 to n
+	if score(i)>bestscore
+		return i
+return n
