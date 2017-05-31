@@ -1,3 +1,0 @@
-//P163
-HEAPMAXIMUM(A)
-return A[1]
