@@ -1,0 +1,29 @@
+//P1001
+//TODO:the definition of transit function and the statement of for loop
+
+
+int COMPUTETRANSITIONFUNCTION(ArrType P,SIG)
+int m;
+int q;
+m=P.length;
+while q<m{
+//for q=0 to m{
+while SIG!=NIL{
+	
+}
+
+	for each character a belongsto SIG{
+		k=min(m+1,q+2)
+		repeat
+			k=k-1
+		until Pk > Pqa// change
+TF(q,a)=k}}
+return TF
+
+int min(int a, int b)
+if a<b
+	   return (a)
+	 else 
+		 return (b)
+	 
+main()

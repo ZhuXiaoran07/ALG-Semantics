@@ -1,21 +1,101 @@
 //P 604
-DFS(G)
-for each vertex u belongsto G.V{
+
+
+struct graph{
+	struct vertex *root;
+    ArrType V;
+	int max;
+	ArrType Adj
+};
+
+struct vertex{
+	char color;
+	int d;
+	int f;
+	struct vertex *p
+};
+
+
+
+
+void DFS(struct graph *G)
+int i;
+int v;
+int time;
+int u;
+i=1;
+while i<G.max{
+G.V[i].color=WHITE;
+//G.V[i].d=0;
+G.V[i].p=NIL;
+i=(i+1)};
+/*for each vertex u belongsto G.V{
 	u.color=WHITE
-	u.pi=NIL}
-time=0
-for each vertex u belongsto G.V{
-	if u.color==WHITE
-		DFSVISIT(G,u)}
+	u.pi=NIL}*/
+time=0;
+i=0;
+while i<G.max{
+//for each vertex u belongsto G.V{
+	if G.V[i].color==WHITE
+		DFSVISIT(&G,i);
+		i=(i+1)};
+return;
 		
-DFSVISIT(G,u)
-time=time+1   //white vertex u has just been discovered
-u.d=time
-u.color=GRAY
-for each v belongsto G.Adi[u] { //explore edge(u,v)
-	if v.color==WHITE{
-		v.pi=u
-		DFSVISIT(G,v)}}
-u.color=BLACK   //blacken u; it is finished
-time=time+1
-u.f=time
+void DFSVISIT(struct graph *G, int i)
+int time;
+int v;
+int u;
+time=(time+1);  //white vertex u has just been discovered
+G.V[i].d=time;
+G.V[i].color=GRAY;
+int t;
+t=0;
+while G.Adj[i][t]!=0 {
+	v=0;
+	while v<=(G.max-1){
+		
+		if G.V[v]==G.Adj[i][t]
+		t=(t+1);
+	//for each v belongsto G.Adj[u]
+		if G.V[v].color==WHITE{
+/*for each v belongsto G.Adi[u] { //explore edge(u,v)
+	if v.color==WHITE{*/
+		G.V[v].p=G.V[i];
+	DFSVISIT(&G,v)};
+		v=(v+1)}};
+		
+G.V[i].color=BLACK;   //blacken u; it is finished
+		print(G.V[i]);
+		
+time=(time+1);
+G.V[i].f=time;
+return;
+
+
+main()
+{
+	struct graph *G;
+	G.max=6;
+struct vertex *V[G.max];
+int A[G.max][G.max];
+G.V=&V;
+G.Adj=&A;
+int i;
+i=0;
+while i<G.max{
+	G.V[i]=i+1;
+	//G.V[i].d=0;
+	i=(i+1)
+};
+i=1;
+while i<G.max-2{
+	G.Adj[G.V[i]][0]=G.V[i+1];
+	G.Adj[G.V[i]][1]=G.V[i-1];
+	//G.V[i+1].p=G.V[i];
+	i=(i+1)
+};
+G.V[0].p=G.V[G.max-1];
+G.root=G.V[0];
+	//G=createDG(&G);
+	DFS(&G)
+}
