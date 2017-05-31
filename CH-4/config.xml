@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2014-2016 K Team. All Rights Reserved. -->
+
+<tests>
+  <test definition="alg4.k"
+        programs="."
+        results="."
+        extension="c"
+      
+        >
+	<kompile-option name="--backend" value="java" />
+ 
+    <program name="find-maximum-subarray.c">
+      <krun-option name="--output" value="none" />
+    </program>
+	  <program name="square-matric-multiply.c">
+      <krun-option name="--output" value="none" />
+    </program>
+		  <program name="square-matric-multiply-Recursive.c">
+      <krun-option name="--output" value="none" />
+    </program>
+  </test>
+</tests>

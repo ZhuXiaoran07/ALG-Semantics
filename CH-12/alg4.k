@@ -1,16 +1,19 @@
 module ALG4-SYNTAX
 
 syntax MainId ::= "main"   [token]
-syntax Id::= "top"	| "tail" | "head" | "length" | "next" | "key" | "prev" | "NIL" | "left" 
-| "right" 
-| "root" |  "p" | "height" | "treeNode" | "tree"
+syntax Id::= "top"	[token]| "tail" [token]| "head" [token]| "length" [token]| "next" [token]
+| "key" [token]| "prev" [token]| "left" [token]
+| "right" [token] | "freq" [token]
+| "root" [token]|  "p" [token]| "height" [token]| "treeNode" [token]| "tree"[token]
+
+syntax Constant ::= "NIL"
 	syntax ReturnVal::=MyInt | Id | DotId | Int | AExp
  	syntax DotId::=Id"."DotId
 			  | Id
 			   | "&" DotId //[seqstrict(1)]
 			   | "*" Id
 	syntax Symbol::= FunctionCall
-				> MyInt | String | Id |DotId | Int
+				> MyInt | String | Id |DotId | Int | Constant
 				
 	syntax Value::=Int | "object" "(" Int ")" [smtlib(smt_pointer_object)]
 	syntax MyInt ::=  "tv" "(" Type "," Value ")"
@@ -246,6 +249,7 @@ syntax KItem ::= mkDecls(Params,AriExps)  [function]
   rule <k>X:Id=>tv(T, I)...</k>
 	   <env>...X|->tv(T:Type, N:Int)...</env>
 	   <store>...N|->tv(T, I)...</store>
+	   when T==K int orBool T==K bool
   
  rule <k> int X:Id=>. ...</k>
         <env> Rho => Rho[X <- tv(int, N:Int)] </env>

@@ -1,10 +1,28 @@
 //P140
-ONLINEMAXIMUM(k,n)
-bestscore=-INFINITY
-for i=1 to k
+int ONLINEMAXIMUM(int k,int n)
+int bestscore;
+bestscore=-1;
+int i;
+i=1;
+while (i<k){
+//for i=1 to k
 	if score(i)>bestscore
-		bestscore=score(i)
-for i=k+1 to n
+		bestscore=score(i);
+i=i+1};
+i=k+1;
+while (i<n){
+//for i=k+1 to n
 	if score(i)>bestscore
-		return i
-return n
+		return (i);
+i=i+1};
+return (n)
+
+		
+main()
+{
+	//int m;
+	//int n
+	//m=5;
+	ONLINEMAXIMUM(5, 10);
+	return (0)
+}

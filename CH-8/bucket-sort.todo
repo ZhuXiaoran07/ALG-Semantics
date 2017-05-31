@@ -1,0 +1,23 @@
+//P201
+// change
+
+BUCKETSORT(A)
+int n;
+int B[n];
+// let B[0..n-1] be a new array
+ n=A.length;
+ int i;
+ i=0;
+ /*while i<=n-1{
+ //for i=0 to n-1
+	B[i]=-1;
+ i=i+1};*/
+// i=0;
+ while i<=n-1{
+// for i=1 to n
+	B[n*A[i]]=A[i];
+ i=i+1};
+ 
+ for i=0 to n-1
+	INSERTIONSORT(B)
+ concatenate(B)

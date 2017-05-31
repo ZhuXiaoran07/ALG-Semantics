@@ -5,7 +5,7 @@ imports ALG4
  
  rule
 <k>
-INORDERTREEWALK(tv(struct treeNode, object(I1)))
+INORDERTREEWALK(&tv(struct treeNode, object(I1)))
 =>
 .K
 ...

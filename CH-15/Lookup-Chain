@@ -1,0 +1,16 @@
+//P388
+
+int LOOKUPCHAIN(ArrType m,ArrType p,int i,int j)
+if m[i][j] < INFINITY
+return (m[i][j]);
+if i==j
+m[i][j]=0
+else{
+	k=i;
+	while k<=j-1{
+	//for k=i to j-1{
+	q=LOOKUPCHAIN(m,p,i,k)+LOOKUPCHAIN(m,p,k+1,j)+p[i-1]*p[k]*p[j]; //made some change 
+	  if q<m[i][j]
+m[i][j]=q;
+k=k+1}};
+return (m[i][j])

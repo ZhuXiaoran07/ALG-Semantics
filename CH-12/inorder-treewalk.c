@@ -9,9 +9,9 @@ struct treeNode {
 };
 
 
-void INORDERTREEWALK(struct treeNode x)
+void INORDERTREEWALK(struct treeNode * x)
  if x!=NIL{
-	INORDERTREEWALK(x.left);
+	INORDERTREEWALK(&x.left);
 	print (x.key);
- INORDERTREEWALK(x.right)};
+ INORDERTREEWALK(&x.right)};
  return; 

@@ -1,0 +1,24 @@
+//P324
+RBDELETE(T,z)
+ y=z
+ yoriginalcolor=y.color
+ if z.left==T.nil{
+ 	x=z.right
+ 	RBTRANSPLANT(T,z,z.right)}
+ elseif z.right==T.nil{
+	x=z.left
+	RBTRANSPLANT(T,z,z.left)}
+ else{y=TREEMINIMUM(z.right)
+ 	yoriginalcolor=y.color
+ 	x=y.right
+ 	if y.p==z
+ 		x.p=y
+ 	else{RBTRANSPLANT(T,y,y.right)
+ 		y.right=z.right
+ 		y.right.p=y}
+ 	RBTRANSPLANT(T,z,y)
+ 	y.left=z.left
+ 	y.left.p=y
+ 	y.color=z.color}
+	if yoriginalcolor==BLACK
+ 		RBDELETEFIXUP(T,x)

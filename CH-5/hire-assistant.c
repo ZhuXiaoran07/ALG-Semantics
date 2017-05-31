@@ -1,8 +1,25 @@
 //P 115
-HIREASSISTANT(n)
- best=0
- for i=1 to n{
-  score(i)=s
-  if score(i)>score(best)
- 		best=i
-		hire candidate i}
+	
+int HIREASSISTANT(int n)
+int best;
+ best=0;
+ int i;
+ i=1;
+ while (i<n){
+// for i=1 to n{
+ // score(i)
+  if score(i)>score(best){
+ 		best=i;
+		i=i+1
+		}
+else i=i+1};
+return (best)
+		
+main()
+{
+	int m;
+	//int n
+	m=5;
+	HIREASSISTANT(m);
+	return (0)
+}
