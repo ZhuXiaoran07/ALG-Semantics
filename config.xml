@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2014-2016 K Team. All Rights Reserved. -->
+
+<tests>
+<!--
+  <include file="execution/config.xml" />
+-->
+  <include file="CH-2/config.xml" />
+  <include file="CH-4/config.xml" />
+  <include file="CH-5/config.xml" />
+  <include file="CH-6/config.xml" />
+  <include file="CH-7/config.xml" />
+  <include file="CH-8/config.xml" />
+  <include file="CH-9/config.xml" />
+  <include file="CH-10/config.xml" />
+  <include file="CH-11/config.xml" />
+  <include file="CH-12/config.xml" />
+  <include file="CH-13/config.xml" />
+  <include file="CH-14/config.xml" />
+  <include file="CH-15/config.xml" />
+  <include file="CH-16/config.xml" />
+  <include file="CH-18/config.xml" />
+  <include file="CH-19/config.xml" />
+  <include file="CH-21/config.xml" />
+  <include file="CH-22/config.xml" />
+  <include file="CH-25/config.xml" />
+  <include file="CH-27/config.xml" />
+  <include file="CH-28/config.xml" />
+  <include file="CH-30/config.xml" />
+  <include file="CH-32/config.xml" />
+  <include file="CH-33/config.xml" />
+  
+ 
+<!--
+  <include file="list/config.xml" />
+  <include file="tree/config.xml" />
+  <include file="sorting/config.xml" />
+
+  <include file="cd2d/config.xml" />
+-->
+</tests>
