@@ -1,15 +1,10 @@
-/*require "int_set.k"
-require "int_list.k"
-require "list_pattern.k"*/
-//require "tree_pattern.k"
-//require "./float.k"
+
 
 module ALG4-SYNTAX
 imports SET
 imports INT
 imports FLOAT
-// imports LIST-PATTERN
-//  imports TREE-PATTERN
+
 
 syntax MainId ::= "main"   [token]
 syntax Id::= "top"	[token]| "tail" [token]| "head" [token]| "length" [token]| "next" [token]| "key" [token]
@@ -21,25 +16,23 @@ syntax Id::= "top"	[token]| "tail" [token]| "head" [token]| "length" [token]| "n
 
 syntax Id::="NIL" | "EMPTY" | "TRUE" | "FALSE"
 
-	syntax ReturnVal::=MyInt | DotId | Int | AExp | Array | ObjValue//| BExp
- 	syntax DotId::=//Id"."DotId
-			   Id
+	syntax ReturnVal::=MyInt | DotId | Int | AExp | Array | ObjValue
+ 	syntax DotId::=  Id
 			  | Id"."Id"."Id [left]
 			  | Id"."Id 
 			  | Id"."Id"."Id"."Id [left]
-			   | "&" DotId //[seqstrict(1)]
+			   | "&" DotId 
 			   | "*" Id
-			  | "object""(" Int")" "." Id //[smtlib(smt_pointer)]
-			   
-			//   | Id"."Id"["AriExp"]" [right, seqstrict(3)]
+			  | "object""(" Int")" "." Id /
+			  
 	syntax Symbol::= FunctionCall
 				> MyInt | String |DotId | Int | Array
 				 
-	//syntax Id::="(" Id ","			
+	
+	
 	syntax Value::=Int | ObjValue
-	syntax ObjValue::="object" "(" Int ")" // [smtlib(smt_pointer_object)]
+	syntax ObjValue::="object" "(" Int ")" 
 	syntax MyInt ::=  "tv" "(" Type "," Value ")"
-				//	| "tv" "(" Type ","  "object" "(" Int ")" ")" [smtlib(smt_pointer_object)]
 	            | "&" "tv" "(" Type ","  "object" "(" Int ")" ")" 
 				| Set
 				 
@@ -47,10 +40,7 @@ syntax Id::="NIL" | "EMPTY" | "TRUE" | "FALSE"
 	syntax Set::="{" Symbol"}" [seqstrict(1)]
 				//| Id
 				| "|" Id "INTERSECT" Id "|"
-				//| Set "SUNION" Set
-				//| Id "SUNION" Set [seqstrict(1)]
-				//| Set "SUNION" FunctionCall  [seqstrict(2)]
-			//	| "EMPTY"
+			
 	syntax Array::=  Id "[" AriExp "]"     [seqstrict(2)]
 				| "&" Id "[" AriExp "]"  [seqstrict(2)]
 	             | Id"."Id "[" AriExp "]"     [seqstrict(3)]
@@ -69,13 +59,8 @@ syntax Id::="NIL" | "EMPTY" | "TRUE" | "FALSE"
 				 >  AriExp "-" AriExp              [left, seqstrict]
 				 | AriExp "+" AriExp		[left, seqstrict]
 				 
-				 
-				//| Id "=" AriExp                [seqstrict(2)]
-				//| MyInt "="AriExp                [seqstrict(2,1)]
-				//| Id "="AriExp                [seqstrict(2)]
 				| DotId "="AriExp                [strict(2)]
 				| Param "=" AriExp 
-			//	| DotId "=" Map
 				| Id "[" AriExp "]" "=" AriExp      [seqstrict(3, 2)]
 				| Id"."Id"["AriExp"]" "=" AriExp      [seqstrict(4, 3)]
 				| Id"."Id"["AriExp"]""."Id "=" AriExp      [seqstrict(5, 3)]
@@ -83,22 +68,14 @@ syntax Id::="NIL" | "EMPTY" | "TRUE" | "FALSE"
 				| Id "[" AriExp "]""[" AriExp "]" "=" AriExp      [seqstrict(4,3, 2)]
 				| Id "[" AriExp "]""[" AriExp "]""[" AriExp"]" "=" AriExp      [seqstrict(5,4,3, 2)]
 				 | Symbol "=" "<" Symbol ">"
-				// | "(" Symbols ")" "=" "(" AriExps ")" [seqstrict(2)]
-			//	 | "(" Ids ")" "=" "(" MyInt "," MyInt "," MyInt ")"	  //[seqstrict(2)]
+			
 				 | "("Symbols ")""=" AriExps        [seqstrict(2)]
 				 | Symbol "=" "(" Ids ")"  [strict(2)]
-                 //| "(" Symbol ")"               [bracket] 
 				 | "1" ".." AExp
-				
-				// | AriExp "mod" AriExp
 				 | AriExp "||" AriExp
 				 | AriExp "&&" AriExp
                  | "(" AExp ")"               [bracket] 
 				 | "RANDOM" "(" AriExp"," AriExp ")" [seqstrict(1, 2)]
-				 //| AExp ".." AExp
-				 //| Symbol ".." AExp
-				 //| AExp ".." Symbol
-			//	 | "spawn" FunctionCall
 				 | 	"SIGMA" "(" AriExp ")" "(" AExp ")" "(" AExp ")"
 				 | Symbol "=" BExp 				[left, strict(2)]
 				 | Set "SUNION" Set
@@ -125,8 +102,6 @@ syntax BExp  ::= Bool
 				  | "(" BExp ")"               [bracket]
 			  // | AriExp "|" AriExp
 			   | FunctionCall
-			//   | "TRUE"
-			  // | "FALSE"
 
   syntax Block ::="{" Stmts "}"
   
@@ -138,25 +113,7 @@ syntax BExp  ::= Bool
                    Stmt "elseif" BExp Stmt
 				    "else" Stmt[strict(1)]
 				| "if" BExp Stmt "elseif" BExp Stmt "elseif" BExp Stmt
-  syntax ForStmt::= "for" "(" Stmt BExp Stmt ")" Stmt
-				 | "for" BExp Stmt [strict(1)]
-				 | "for" AriExp "to" Symbol Stmt  
-				  | "for" AExp "to" AExp "by" Id   [seqstrict(1,2)]
-				 | "for" AriExp "downto" AriExp Stmt  [seqstrict(1,2)]
-				 | "for" "each character" Id "belongsto" Id Block	
-				 
-	syntax LetStmt::=  "let" Symbol "and" Symbol "be new arrays"
-				 |  "let" Symbol "be a new array"
-				 | "let" AriExp "be a new" AExp "matrix"
-				 |  "let" AriExp "and" AriExp "be new" AExp "matrices"
-				 | "let" Symbols "and" Symbol "be new tables"
-				  | "let" Symbol "be a new table"
-				  | "let" Symbol "be a new vector of length" Symbol
-				  | "let" Symbol "and" Symbol "be such that" BExp "," Symbol "is odd"",""and" AExp
-				 | "let" "<" AriExp"," AriExp"," "..." "," AriExp ">" "be the binary representation of" Id
-				  | "let" AriExp "be an arbitrary edge of" AriExp
-				 | "let" AriExp "be the largest value in" AriExp			 
-				 
+
 				 
   syntax Stmt  ::= Block 
 				  | AExp
@@ -165,8 +122,6 @@ syntax BExp  ::= Bool
 				//|  Id "(" AriExps")" //[seqstrict(2)]
 				| FunctionCall 
 				 | Param
-				 | ForStmt
-				 | LetStmt
 				 | IfStmt
 				 | "spawn" Stmt
 				 | "GetValue" "<" ReturnVal ">" [seqstrict(1)]
@@ -208,8 +163,7 @@ syntax Param::=Type Id | Type Id "[" AriExp "]" [seqstrict(3)]
 syntax Params::=List{Param, ","}
 syntax VariDecls::=List{Param, ";"}
 syntax Symbols::=List{Symbol, ","}
-//syntax FunctionCall::= Id "(" AriExps ")"  //[seqstrict(2)]
-//syntax FunctionCall::= Id "(" AriExps")" [seqstrict(2)]	
+
 syntax FunctionCall::= Id "(" AriExp"," AriExp ")" [seqstrict(2,3)]		
 					 | Id "(" AriExp ")" [seqstrict(2)]	
                      | Id "(" AriExp"," AriExp "," AriExp ")" [seqstrict(2,3,4)]
@@ -263,7 +217,6 @@ endmodule
 
 module ALG4
   imports ALG4-SYNTAX
- // imports ALG-CONFIGURATION
    syntax KResult ::= MyInt | Bool | String
 
   
@@ -280,15 +233,6 @@ module ALG4
   <struct> .Map </struct>
 
 	  <fun>.Map</fun>
-	  //array
-    /*  <arrayStore>
-              <array  multiplicity="*">
-                <arrayId> .K </arrayId>
-                <arrayType> .K </arrayType>
-                <arraystore > .Map </arraystore>
-				<arrayLen>0</arrayLen>
-              </array>
-      </arrayStore>*/
 	
 	   <fstack color="blue"> .List </fstack>
 	  //global
@@ -301,15 +245,14 @@ module ALG4
 		 
                 </T>
 				
-				
+  /*
+   * Macros
+   */				
  rule RED=>tv(bool, 0)[macro]
  rule WHITE=>tv(char, 2) [macro]
  rule BLACK=>tv(char, 1) [macro]
  rule GRAY=>tv(char, 0) [macro]
- //rule BLACK=>tv(bool, 1)[macro]	
- //rule TRUE=>tv(bool, 1) [macro]
- //rule FALSE=>tv(bool, 0)[macro]
- //syntax Float::= "PI"
+
 rule PI=> 3.14
 
 rule EMPTY=>.Set 
@@ -323,16 +266,30 @@ rule score(I:Id)=>7
 rule score(I:Id)=>8
 rule score(I:Id)=>9
 rule score(I:Id)=>10
+  rule RANDOM(tv(int,I1:Int), tv(int,I2:Int))=>tv(int,(I1+Int I2)/Int 2:Int) 
 
-//| SET "UNION" SET
+// SET 
 rule {S1:Symbol} SUNION S2:Set=>SetItem(S1) S2 requires notBool (S1 in S2)
 rule S1:Set SUNION {S2:Symbol}=>S1 SetItem(S2) requires notBool (S2 in S1)
 rule {S1:Symbol} SUNION S2:Set=>S2 requires (S1 in S2)
 rule S1:Set SUNION {S2:Symbol}=>S1 requires (S2 in S1)
 rule {S1:Symbol} SUNION S2:Set=>SetItem(S1) SetItem(S2) requires S1=/=K S2
 
-
-  
+ 
+  rule <k> SET I:Id=>.K ...</k>
+       <env> ... .Map=>I|->tv(SET, N) ...</env>
+	   <store> ... .Map=>(N|-> .Set)...</store>
+	    <nextLoc>N:Int=>N+Int 1</nextLoc>
+		
+		rule <k>I:Id=> S:Set ...</k>
+		     <env> ... I|->tv(SET, N:Int) ...</env>
+			 <store> ... N|->S ...</store>
+			
+	rule <k> I=S:Set=>.K ...</k>
+	 <env> ... I:Id|->tv(SET, N:Int) ...</env>
+			 <store> ... N|->(_=>S) ...</store>
+	   
+//Array  
  syntax KItem ::="["Id "," Int "]"
 //syntax KItem ::= "value-array" "("  Int  ")"
 
@@ -343,29 +300,23 @@ syntax Map::=	"array-map" "(" Type "," Int ")"  [function]
 			| "dimeArray-Ini" "("Type ","Int "," Int ")"   [function]
 
 syntax Int::="tree_height" "(" DotId ")" [function]
-/*rule tree_height(T:Id)=>tree_height(T.root)
-rule tree_height(T)
- => 1 +Int maxInt(tree_height(T.left), tree_height(T.right))
-  rule tree_height(NIL) => 0*/
+
 
 			
   rule P:Pgm Ps:Pgms => P ~> Ps   [structural]
   rule .Pgms => .K                   [structural]
   
-  rule RANDOM(tv(int,I1:Int), tv(int,I2:Int))=>tv(int,(I1+Int I2)/Int 2:Int)  
- // rule RANDOM(tv(int,I1:Int), tv(int,I2:Int))=>tv(int,I1-Int 1:Int)
-  //array
+ 
 
-// AExp
+
 rule <k>ArrType I:Id=>.K ... </k>
      <env> ... .Map=>I|->tv(ArrType, object(N)) ... </env>
       <nextLoc>N:Int=>N+Int 1</nextLoc>
 
 
 rule array-map(T:Type, I:Int)=> I-Int 1|->tv(T, 0) array-map(T:Type, I-Int 1) requires I>Int 0 
-//rule dimeArray-map(T:Type, I1, I2)=>(I1-Int 1, I2-Int 1)|->tv(T, 0) (I1-Int 1, I2-Int 2)|->tv(T, 0) 
-  //                                   (I1-Int 2, I2-Int 1)|->tv(T, 0) dimeArray-map(T:Type, I1-Int 1, I2-Int 1)
-	//					requires I1>=Int 2 andBool I2>=Int 2		
+
+	
 rule dimeArray-map(T:Type, I1, I2)=>dimeArray-Ini(T, I1-Int 1, I2-Int 1) dimeArray-map(T:Type, I1-Int 1, I2)
      requires I1>=Int 0 andBool I2>=Int 0
  rule dimeArray-Ini(T, I1, I2)=>(I1, I2)|->tv(T, 0) dimeArray-Ini(T, I1, I2-Int 1)
@@ -374,9 +325,6 @@ rule dimeArray-Ini(T, I1, -1)=>.Map
 rule dimeArray-Ini(T, -1, I2)=>.Map
 rule dimeArray-map(T, -1, I)=>.Map
 						
-//rule dimeArray-map(T:Type, 2, 2)=>(1, 1)|->tv(T, 0) (1, 0)|->tv(T, 0) (0,1)|->tv(T, 0) (0,0)|->tv(T,0)
-//rule dimeArray-map(T:Type, 1, 1)=>(0, 0)|->tv(T, 0)
-
 
 
 
@@ -396,8 +344,11 @@ rule <k> int X:Id[tv(T:Type, I1)][tv(T:Type, I2)][tv(T:Type, I3)]=>.K ...</k>
       <env> ... .Map=>X|->tv(ArrType, object(N)) ... </env>
 	  <store> ... .Map=>object(N)|->(length|->tv(int, I) array-map(int, I)) ...</store>
 	   <nextLoc>N:Int=>N+Int 1</nextLoc>
+	   
+	   
+
 	
-	
+//declarartion of array 	
 rule <k> struct S:Id* I:Id[tv(T:Type, I1)] =>.K ...</k>
      <struct>... S |-> Members:Map ...</struct>
 	    <env> M1:Map(.Map=>I:Id|->tv(struct S, object(N:Int)))</env>
@@ -483,40 +434,12 @@ rule initializeObject(F:Id |-> T:Type M:Map)
   requires I>Int 0
   rule initializeArrayObject(0,M)=>.Map
   
-  
-  //rule initializeObject(F|->(T:Type, I) M:Map)=>
-    //   F|->(array-map(int, 0)) initializeObject(M)
-  
- /* rule <store>... I1:Id|->( initializeObject((F:Id,I) |-> int M:Map) I|->tv(int, N:Int) M1:Map) ...</store>
-  =><store>... I1:Id|->( .Map=>F|->(array-map(int, N)) (initializeObject(M)) I|->tv(int, N:Int) M1)...</store>*/
-  
-  
- // rule initializeObject((F:Id,I) |-> treeNode M:Map)
-  //=>F|->(node-map(treeNode, I)) initializeObject(M)
 
   
   
+
   
-   rule <k> int X:Id[tv(T:Type, I)]=>.K ...</k>
-      <env> ... .Map=>X|->tv(ArrType, object(N)) ... </env>
-	  <store> ... .Map=>object(N)|->(length|->tv(int, I) array-map(int, I)) ...</store>
-	   <nextLoc>N:Int=>N+Int 1</nextLoc>
-  
-  
-  
-  rule <k> SET I:Id=>.K ...</k>
-       <env> ... .Map=>I|->tv(SET, N) ...</env>
-	   <store> ... .Map=>(N|-> .Set)...</store>
-	    <nextLoc>N:Int=>N+Int 1</nextLoc>
-		
-		rule <k>I:Id=> S:Set ...</k>
-		     <env> ... I|->tv(SET, N:Int) ...</env>
-			 <store> ... N|->S ...</store>
-			
-	rule <k> I=S:Set=>.K ...</k>
-	 <env> ... I:Id|->tv(SET, N:Int) ...</env>
-			 <store> ... N|->(_=>S) ...</store>
-	   
+ 
 	   
 	   rule <k> struct S:Id* I:Id=>.K ...</k>
 	   <struct>... S |-> Members:Map ...</struct>
@@ -532,13 +455,12 @@ rule initializeObject(F:Id |-> T:Type M:Map)
 		   <store> M2:Map(.Map=>object(N:Int)|-> initializeObject(Members))</store>
 		    <nextLoc>N:Int=>N+Int 1</nextLoc>
 			when (object(-1) in keys(M2)) orBool S=/=K treeNode
-	 
+//rules about dotId	 
 
 rule <k> X.X1:Id=>I3:MyInt ...</k>
         <env> ... X:Id|->tv(T1:Type, object(I:Int)) ...</env>
          <store> ... (object(I)|->(X1|->I3 M:Map))  ...</store>
-/////////////////////////////////////////////////////////////////////////////////
-//queue
+
 rule <k> X.X1[tv(_,N:Int)]=>I3:MyInt ...</k>
         <env> ... X:Id|->tv(T1:Type, object(I:Int)) ...</env>
          <store> ... (object(I)|->(X1|->tv(T2:Type, object(I1:Int)) M:Map))
@@ -624,7 +546,7 @@ rule <k> &X.X1=>&tv(T:Type, object(I)) ...</k>
     <env> ... X:Id|->tv(T1:Type, object(I1)) ... </env>
 	<store> ... object(I1)|->(X1:Id|->tv(T:Type, object(I)) M:Map) ...</store>
 		
-		
+//		
 rule <k> X:Id=&tv(T1:Type, object(I))=>. ... </k>
 
        <env> ... X:Id|->(_=>tv(T1:Type, object(I))) ...</env>
@@ -796,13 +718,7 @@ syntax KItem ::= mkDecls(Params,AriExps)  [function]
     => X |-> T makeMemberMap(VDs)
   rule makeMemberMap(.VariDecls) => .Map
   
-/*  rule makeMemberMap(T:Type I:Id[I1:Id]; VDs:VariDecls)
-  => I |-> (T, I1) makeMemberMap(VDs)*/
-  
-  
-  
- /* rule makeMemberMap(T:Type X:Id[A:AriExp]; VDs:VariDecls)
-  => X|->(T A) makeMemberMap(VDs)*/
+
 
   rule
     <k> struct S:Id { VDs:VariDecls }; => .K ...</k>
@@ -1005,8 +921,6 @@ rule <k>(return (F1:Id(A1:MyInt, A2:MyInt)))~>_=>F1:Id(A1:MyInt, A2:MyInt)~>K</k
 	 <fstack> ListItem((Env, STORE:Map, K)) => .List ...</fstack>
 	
 
-/*	syntax KItem::="tv" "(" MyInt")" 
-				  | "tv" "(" Id ")"*/
 				  
 rule ((I1:Id, I2:Id, I3:Id)=(N1:MyInt, N2:MyInt, N3:MyInt))=>I1=N1~>I2=N2~>I3=N3				  
 rule ((I1:Id, I2:Id)=(N1:MyInt, N2:MyInt))=>I1=N1~>I2=N2
@@ -1022,47 +936,34 @@ rule ((I1:Id, I2:Id)=(N1:MyInt, N2:MyInt))=>I1=N1~>I2=N2
 	 
 	 
 	 rule <k>(return (I1:MyInt, I2:MyInt))~>_ =>(I1, I2)~>K</k>
-  //   <fid>F</fid>
 	 <env>_=>Env</env>
-	// <store> _=>STORE </store>
-	// <gstore> _=>STORE:Map </gstore>
 	 <fstack> ListItem((Env, STORE:Map, K)) => .List ...</fstack>
 	 
 	 rule <k>(return (I1:MyInt, I2:MyInt, I3:MyInt, I4:MyInt))~>_ =>(I1, I2, I3, I4)~>K</k>
-  //   <fid>F</fid>
+
 	 <env>_=>Env</env>
-	// <store> _=>STORE </store>
-	// <gstore> _=>STORE:Map </gstore>
+
 	 <fstack> ListItem((Env, STORE:Map, K)) => .List ...</fstack>
 	
 rule <k>(return (I:MyInt))~>_ =>I~>K</k>
-  //   <fid>F</fid>
+
 	 <env>_=>Env</env>
-	// <store> _=>STORE </store>
-	// <gstore> _=>STORE:Map </gstore>
+
 	 <fstack> ListItem((Env, STORE:Map, K)) => .List ...</fstack>
 	    
-	/* rule <k>(return (B:Bool))~>_ =>B~>K</k>
-  //   <fid>F</fid>
-	 <env>_=>Env</env>
-	// <store> _=>STORE </store>
-	// <gstore> _=>STORE:Map </gstore>
-	 <fstack> ListItem((Env, STORE:Map, K)) => .List ...</fstack>
-	 */
+
 	 rule <k>(return (S:Set))~>_ =>S~>K</k>
-  //   <fid>F</fid>
+
 	 <env>_=>Env</env>
-	// <store> _=>STORE </store>
-	// <gstore> _=>STORE:Map </gstore>
+
 	 <fstack> ListItem((Env, STORE:Map, K)) => .List ...</fstack>
     
 	
 	
 rule <k>(return; )~>_ =>K</k>
-  //   <fid>F</fid>
+
 	 <env>_=>Env</env>
-	// <store> _=>STORE </store>
-	// <gstore> _=>STORE:Map </gstore>
+
 	 <fstack> ListItem((Env, STORE:Map, K)) => .List ...</fstack>
 	 
 ////////////////////////////////////////////////////////	 
@@ -1071,18 +972,7 @@ rule <k>(return; )~>_ =>K</k>
                 | "leaf"
 				| Value
 
- /* syntax IntSet ::= "tree_keys" "(" Tree ")"    [function, smtlib(smt_tree_keys)]
-  rule tree_keys(node(I:Int, TL:Tree, TR:Tree))
-    => { I } U tree_keys(TL) U tree_keys(TR)
-  rule tree_keys(leaf) => .IntSet*/
- /*syntax Int ::= "tree_height" "(" Tree ")"     // [function, smtlib(smt_tree_height)]
 
-  rule tree_height(node(I:Int, TL:Tree, TR:Tree))
-    => 1 +Int maxInt(tree_height(TL), tree_height(TR))
-  rule tree_height(object(-1)) => 0*/
-  //	syntax Int ::="MaxValue""<" Int "," Int">" [strict(1, 2)]
-//	rule MaxValue< I1:Int, I2:Int > =>I1 when I1>=Int I2
-//	rule MaxValue< I1:Int, I2:Int > =>I2 when I1<Int I2
   rule  GetValue<tv(T:Type, object(I:Int))> =>treeHeight(tv(T:Type, object(I:Int))) //[structural]
   
  rule <k> object(I:Int).N:Id=>tv(T:Type, object(I2:Int)) ...</k>
@@ -1090,15 +980,11 @@ rule <k>(return; )~>_ =>K</k>
 	
 	 //syntax Int ::="tree_height" "(" MyInt ")" [function, strict(1), smtlib(smt_tree_height)]
 	  syntax Int ::="treeHeight" "(" ReturnVal ")" [function, strict(1)]
-				//   |"tree_height" "(" DotId")" [function, smtlib(smt_tree_size)]
+				
 	 rule treeHeight(tv(T:Type, object(I:Int)))=>treeHeight(object(I).right)
-	// maxInt(treeHeight(object(I).right), treeHeight(object(I).left))+Int 1
+
 	    when I=/=Int -1
-	 /* //rule tree_height(tv(T:Type, object(I:Int)))=>tree_height(object(I).right) //+Int 1
-	  //  
-	rule <k>tree_height(tv(T:Type, object(I:Int)))=> tree_height(object(I1))+Int 1 ...</k>
-         <store> ... object(I)|->(right|-> tv(T1:Type, object(I1)) M:Map) ...</store>	
-		  when I=/=Int -1 */
+
 	 rule treeHeight(tv(T:Type, object(-1))) => 0
 
 	
