@@ -1,1 +1,8 @@
 
+This demo is about proving the worst case execution time of the algorithm INSERTION SORT, which should be executed in time O(n^2).
+To play with this demo, please follow the instruction:
+1) kompile alg4.k
+2) krun --prove insertion-spec.k insertion-sort.c
+
+The time property is specified in line 26 of the file 'insertion-spec.k', where size(array_size(object(I1))) stands for the length of the array to be sorted.
+The definition of pattern array_size(_) can be found in line 318 to line 330 of the file 'alg4.k'.
