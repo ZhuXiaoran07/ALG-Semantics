@@ -60,12 +60,13 @@ syntax Id::= "top"	| "tail" | "head" | "length" | "next" | "key" | "prev" | "NIL
 				 
 syntax BExp  ::= Bool 
 				// | Symbol "<" Symbol
-				 | AriExp "!=" AriExp             [seqstrict, latex({#1}\leq{#2})]
-				  | AriExp "==" AriExp             [seqstrict, latex({#1}\leq{#2})]
-				 | AriExp ">" AriExp             [seqstrict, latex({#1}\leq{#2})]
-				 | AriExp "<" AriExp             [seqstrict, latex({#1}\leq{#2})]
+				 | AriExp "!=" AriExp             [seqstrict]
+				  | AriExp "==" AriExp             [seqstrict]
+				 | AriExp ">" AriExp             [seqstrict]
+				 | AriExp "<" AriExp             [seqstrict]
+				 | AriExp "<=" AriExp             [seqstrict]
 				 | AriExp "<=" AriExp "<=" AriExp
-				 | AriExp ">=" AriExp             [seqstrict, latex({#1}\leq{#2})]
+				 | AriExp ">=" AriExp             [seqstrict]
 				  | "!" BExp           [strict]
 				 | "not" BExp
 				  > BExp "and" BExp      [left, strict(1)]
@@ -113,6 +114,7 @@ syntax BExp  ::= Bool
 				 | ForStmt
 				 | LetStmt
 				 | IfStmt
+				 | Type Array
 				| "sync"
 				 | "parallel" Stmt
 				 | "while" BExp Stmt
@@ -424,7 +426,7 @@ syntax KItem ::= mkDecls(Params,AriExps)  [function]
  rule tv(T1:Type, I1) == tv(T2:Type, I2) => I1 ==K I2
   rule tv(int, I1) > tv(int, I2) => I1 >Int I2
   rule tv(int, I1) < tv(int, I2) => I1 <Int I2
-   rule tv(int, I1) <= tv(int, I2) => I1 <=Int I2
+  rule tv(int, I1) <= tv(int, I2) => I1 <=Int I2
     rule tv(int, I1) >= tv(int, I2) => I1 >=Int I2
   rule true or _ => true
  rule false or B:BExp=>B
